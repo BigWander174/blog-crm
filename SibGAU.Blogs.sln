@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Web", "SibGAU.Blogs.Web\SibGAU.Blogs.Web.csproj", "{4919398A-7BF6-41D9-950C-5747E35CA4A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Domain", "SibGAU.Blogs.Domain\SibGAU.Blogs.Domain.csproj", "{EDE8412C-DE87-4473-9049-48B75D7BDA7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{4919398A-7BF6-41D9-950C-5747E35CA4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4919398A-7BF6-41D9-950C-5747E35CA4A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4919398A-7BF6-41D9-950C-5747E35CA4A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
