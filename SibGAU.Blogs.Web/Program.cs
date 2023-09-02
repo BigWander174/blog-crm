@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 using SibGAU.Blogs.Infrastructure.DataAccess;
+using SibGAU.Blogs.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<IReadOnlyAppDbContext, AppDbContext>(options
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(Temp).Assembly));
 var app = builder.Build();
 
 app.Run();
