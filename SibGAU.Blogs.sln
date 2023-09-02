@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Web", "SibGAU.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Domain", "SibGAU.Blogs.Domain\SibGAU.Blogs.Domain.csproj", "{EDE8412C-DE87-4473-9049-48B75D7BDA7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Infrastructure.Abstractions", "SibGAU.Blogs.Infrastructure.Abstractions\SibGAU.Blogs.Infrastructure.Abstractions.csproj", "{8473219F-6403-4A05-B9A2-5D7A52385C61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDE8412C-DE87-4473-9049-48B75D7BDA7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
