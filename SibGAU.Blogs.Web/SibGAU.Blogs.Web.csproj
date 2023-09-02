@@ -6,4 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SibGAU.Blogs.Infrastructure.Abstractions\SibGAU.Blogs.Infrastructure.Abstractions.csproj" />
+      <ProjectReference Include="..\SibGAU.Blogs.Infrastructure.DataAccess\SibGAU.Blogs.Infrastructure.DataAccess.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    </ItemGroup>
+
 </Project>
