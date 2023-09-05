@@ -1,0 +1,29 @@
+@model System.Collections.Generic.IReadOnlyCollection<SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery.BlogDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Blogs</title>
+</head>
+<body>
+    <div>
+        Блоги:
+    </div>
+    <div>
+        @foreach (var blog in Model)
+        {
+            <div>
+                Название -  @blog.Title
+                Контент - @blog.Content
+                Админ - @blog.AuthorName
+                @blog.CreatedAt
+            </div>
+        }
+    </div>
+</body>
+</html>
