@@ -28,7 +28,7 @@ public class Blog
     /// <summary>
     /// Author.
     /// </summary>
-    public required Author Author { get; init; }
+    public Author Author { get; init; } = null!;
     
     /// <summary>
     /// Created at.
