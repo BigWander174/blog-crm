@@ -1,9 +1,11 @@
-namespace SibGAU.Blogs.Web.Controllers.Dtos;
+using MediatR;
+
+namespace SibGAU.Blogs.UseCases.Authors.LoginAuthorCommand;
 
 /// <summary>
-/// Login dto.
+/// Login author command.
 /// </summary>
-public record LoginDto
+public class LoginAuthorCommand : IRequest<Unit>
 {
     /// <summary>
     /// Login.
