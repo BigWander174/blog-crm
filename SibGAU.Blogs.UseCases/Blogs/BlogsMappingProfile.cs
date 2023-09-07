@@ -15,6 +15,6 @@ public class BlogsMappingProfile : Profile
     public BlogsMappingProfile()
     {
         CreateMap<Blog, BlogDto>()
-            .ForMember(blogDto => blogDto.AuthorName, src => src.MapFrom(blog => blog.Author.Name));
+            .ForMember(blogDto => blogDto.AuthorName, src => src.MapFrom(blog => blog.Author.UserName));
     }
 }

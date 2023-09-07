@@ -1,30 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace SibGAU.Blogs.Domain;
 
 /// <summary>
 /// Author.
 /// </summary>
-public class Author
+public class Author : IdentityUser
 {
-    /// <summary>
-    /// Id.
-    /// </summary>
-    public int Id { get; private set; }
-    
-    /// <summary>
-    /// Name.
-    /// </summary>
-    public required string Name { get; set; }
-    
-    /// <summary>
-    /// Email.
-    /// </summary>
-    public required string Email { get; set; }
-    
-    /// <summary>
-    /// Phone.
-    /// </summary>
-    public long Phone { get; set; }
-
     /// <summary>
     /// Blogs.
     /// </summary>
