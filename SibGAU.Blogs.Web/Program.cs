@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 using SibGAU.Blogs.Infrastructure.DataAccess;
 using SibGAU.Blogs.UseCases;
@@ -22,6 +24,10 @@ builder.Services.AddDbContext<IReadOnlyAppDbContext, AppDbContext>(options
 
 builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddAsyncInitializer<DatabaseInitializer>();
+
+
+builder.Services.AddIdentity<Author, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 // Mediatr.
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(Temp).Assembly));

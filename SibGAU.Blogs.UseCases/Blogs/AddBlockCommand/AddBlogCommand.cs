@@ -20,7 +20,7 @@ public class AddBlogCommand : IRequest<Unit>
     /// <summary>
     /// Author id.
     /// </summary>
-    public required int AuthorId { get; init; }
+    public required string? AuthorId { get; init; }
     
     /// <summary>
     /// Created at.

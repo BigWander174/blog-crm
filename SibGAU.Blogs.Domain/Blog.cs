@@ -23,7 +23,7 @@ public class Blog
     /// <summary>
     /// Author id.
     /// </summary>
-    public int AuthorId { get; init; }
+    public required string AuthorId { get; init; }
 
     /// <summary>
     /// Author.
