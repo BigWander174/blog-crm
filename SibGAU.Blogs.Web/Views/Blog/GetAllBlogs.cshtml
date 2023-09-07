@@ -1,4 +1,4 @@
-@model System.Collections.Generic.IReadOnlyCollection<SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery.BlogDto>
+@model IReadOnlyCollection<BlogDto>
 
 @{
     Layout = null;
@@ -21,7 +21,7 @@
                 Название -  @blog.Title
                 Контент - @blog.Content
                 Админ - @blog.AuthorName
-                @blog.CreatedAt
+                Создано - @blog.CreatedAt
             </div>
         }
     </div>
