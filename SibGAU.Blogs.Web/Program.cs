@@ -3,6 +3,7 @@ using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 using SibGAU.Blogs.Infrastructure.DataAccess;
 using SibGAU.Blogs.UseCases;
 using SibGAU.Blogs.UseCases.Blogs;
+using SibGAU.Blogs.Web.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<IReadOnlyAppDbContext, AppDbContext>(options
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddAsyncInitializer<DatabaseInitializer>();
 
 // Mediatr.
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(Temp).Assembly));
@@ -30,4 +32,5 @@ var app = builder.Build();
 
 app.MapControllers();
 
-app.Run();
+await app.InitAsync();
+await app.RunAsync();
