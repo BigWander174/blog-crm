@@ -1,6 +1,7 @@
 using AutoMapper;
 using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
+using SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
 
 namespace SibGAU.Blogs.UseCases.Blogs;
 
@@ -16,5 +17,6 @@ public class BlogsMappingProfile : Profile
     {
         CreateMap<Blog, BlogDto>()
             .ForMember(blogDto => blogDto.AuthorName, src => src.MapFrom(blog => blog.Author.UserName));
+        CreateMap<Blog, GetBlogDto>();
     }
 }

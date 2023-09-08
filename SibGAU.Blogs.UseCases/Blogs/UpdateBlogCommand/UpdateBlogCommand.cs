@@ -10,7 +10,7 @@ public class UpdateBlogCommand : IRequest<Unit>
     /// <summary>
     /// Blog id.
     /// </summary>
-    public required int BlogId { get; init; }
+    public required int BlogId { get; set; }
     
     /// <summary>
     /// Title.
