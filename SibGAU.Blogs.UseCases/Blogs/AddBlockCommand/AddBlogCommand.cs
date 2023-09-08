@@ -20,10 +20,10 @@ public class AddBlogCommand : IRequest<Unit>
     /// <summary>
     /// Author id.
     /// </summary>
-    public required string? AuthorId { get; init; }
+    public string? AuthorId { get; set; }
     
     /// <summary>
     /// Created at.
     /// </summary>
-    public required DateTime CreatedAt { get; init; } = DateTime.Now;
+    public required DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 }

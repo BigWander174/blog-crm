@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace SibGAU.Blogs.UseCases.Authors.LoginAuthorCommand;
+namespace SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 
 /// <summary>
 /// Login author command.

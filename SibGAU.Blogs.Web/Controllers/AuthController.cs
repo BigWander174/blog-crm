@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SibGAU.Blogs.UseCases.Authors.LoginAuthorCommand;
+using SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 
 namespace SibGAU.Blogs.Web.Controllers;
 

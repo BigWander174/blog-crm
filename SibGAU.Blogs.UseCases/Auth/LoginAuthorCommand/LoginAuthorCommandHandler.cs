@@ -4,12 +4,12 @@ using Microsoft.Extensions.Logging;
 using Saritasa.Tools.Domain.Exceptions;
 using SibGAU.Blogs.Domain;
 
-namespace SibGAU.Blogs.UseCases.Authors.LoginAuthorCommand;
+namespace SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 
 /// <summary>
 /// Login author command handler.
 /// </summary>
-public class LoginAuthorCommandHandler : IRequestHandler<LoginAuthorCommand, Unit>
+public class LoginAuthorCommandHandler : IRequestHandler<Auth.LoginAuthorCommand.LoginAuthorCommand, Unit>
 {
     private readonly SignInManager<Author> signInManager;
     private readonly ILogger<LoginAuthorCommandHandler> logger;
@@ -24,7 +24,7 @@ public class LoginAuthorCommandHandler : IRequestHandler<LoginAuthorCommand, Uni
     }
 
     /// <inheritdoc />
-    public async Task<Unit> Handle(LoginAuthorCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(Auth.LoginAuthorCommand.LoginAuthorCommand request, CancellationToken cancellationToken)
     {
         var user = await signInManager.UserManager.FindByEmailAsync(request.Email);
         if (user is null)
