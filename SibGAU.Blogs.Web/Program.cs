@@ -6,7 +6,8 @@ using SibGAU.Blogs.Infrastructure.DataAccess;
 using SibGAU.Blogs.UseCases;
 using SibGAU.Blogs.UseCases.Blogs;
 using SibGAU.Blogs.Web.Middlewares;
-using SibGAU.Blogs.Web.Startup;
+using SibGAU.Blogs.Web.Startup.Initializers;
+using SibGAU.Blogs.Web.Startup.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,10 @@ if (connectionString is null)
     throw new ArgumentException("Connection string not provided", nameof(connectionString));
 }
 
+// Add admin credentials.
+builder.Services.Configure<List<AdminCredentials>>(builder.Configuration.GetSection("Admins"));
+
+// Database.
 builder.Services.AddDbContext<IReadOnlyAppDbContext, AppDbContext>(options 
         => options.UseNpgsql(connectionString)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
@@ -26,9 +31,13 @@ builder.Services.AddDbContext<IReadOnlyAppDbContext, AppDbContext>(options
 builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddAsyncInitializer<DatabaseInitializer>();
 
+// Add initializer for admin credentials to database.
+builder.Services.AddAsyncInitializer<AdminsInitializer>();
+
 // Exception middleware.
 builder.Services.AddScoped<ExceptionMiddleware>();
 
+// Configure identity.
 builder.Services.AddIdentity<Author, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 

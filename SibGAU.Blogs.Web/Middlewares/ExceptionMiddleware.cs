@@ -18,13 +18,13 @@ public class ExceptionMiddleware : IMiddleware
         {
             await next(context);
         }
-        catch (NotFoundException e)
+        catch (NotFoundException exception)
         {
-            await GenerateErrorPageAsync(context);
+            await GenerateErrorPageAsync(context, exception.Message);
         }
     }
 
-    private async Task GenerateErrorPageAsync(HttpContext context)
+    private async Task GenerateErrorPageAsync(HttpContext context, string exceptionMessage)
     {
         var viewResult = new ViewResult()
         {
@@ -33,7 +33,7 @@ public class ExceptionMiddleware : IMiddleware
         var viewDataDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(),
             new ModelStateDictionary())
         {
-            Model = null
+            Model = exceptionMessage
         };
         viewResult.ViewData = viewDataDictionary;
 

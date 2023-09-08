@@ -10,7 +10,7 @@ public class LoginAuthorCommand : IRequest<Unit>
     /// <summary>
     /// Login.
     /// </summary>
-    public required string Login { get; init; }
+    public required string Email { get; init; }
     
     /// <summary>
     /// Password.

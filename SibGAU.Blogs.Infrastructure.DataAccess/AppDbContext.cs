@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
 namespace SibGAU.Blogs.Infrastructure.DataAccess;
 
-public class AppDbContext : DbContext, IAppDbContext, IReadOnlyAppDbContext
+public class AppDbContext : IdentityDbContext<Author>, IAppDbContext, IReadOnlyAppDbContext
 {
     /// <summary>
     /// App db context.
