@@ -7,6 +7,9 @@ using SibGAU.Blogs.Web.Startup.Settings;
 
 namespace SibGAU.Blogs.Web.Startup.Initializers;
 
+/// <summary>
+/// Admin initializer.
+/// </summary>
 public class AdminsInitializer : IAsyncInitializer
 {
     private readonly RoleManager<IdentityRole> roleManager;
@@ -14,6 +17,9 @@ public class AdminsInitializer : IAsyncInitializer
     private readonly UserManager<Author> userManager;
     private readonly ILogger<AdminsInitializer> logger;
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public AdminsInitializer(RoleManager<IdentityRole> roleManager, 
         IOptions<List<AdminCredentials>> credentials, 
         UserManager<Author> userManager, 
@@ -25,6 +31,7 @@ public class AdminsInitializer : IAsyncInitializer
         this.credentials = credentials.Value;
     }
 
+    /// <inheritdoc />
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));

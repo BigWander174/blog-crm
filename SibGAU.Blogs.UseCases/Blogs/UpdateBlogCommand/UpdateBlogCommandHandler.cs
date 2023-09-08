@@ -33,11 +33,13 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, Unit>
         if (request.Title is not null)
         {
             blog.Title = request.Title;
+            blog.EditedAt = request.EditedAt;
         }
 
         if (request.Content is not null)
         {
             blog.Content = request.Content;
+            blog.EditedAt = request.EditedAt;
         }
 
         await context.SaveChangesAsync(cancellationToken);

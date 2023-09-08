@@ -25,5 +25,5 @@ public class UpdateBlogCommand : IRequest<Unit>
     /// <summary>
     /// Edited at.
     /// </summary>
-    public DateTime EditedAt { get; init; } = DateTime.Now;
+    public DateTime EditedAt { get; init; } = DateTime.UtcNow;
 }

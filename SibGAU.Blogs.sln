@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Domain", "SibG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Infrastructure.Abstractions", "SibGAU.Blogs.Infrastructure.Abstractions\SibGAU.Blogs.Infrastructure.Abstractions.csproj", "{8473219F-6403-4A05-B9A2-5D7A52385C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Infrastructure", "SibGAU.Blogs.Infrastructure\SibGAU.Blogs.Infrastructure.csproj", "{2E5D57CD-44A5-4752-94B0-23719F249510}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.Infrastructure.DataAccess", "SibGAU.Blogs.Infrastructure.DataAccess\SibGAU.Blogs.Infrastructure.DataAccess.csproj", "{2CE3CB77-CBA7-4C2D-9F6D-E2CB647E2008}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SibGAU.Blogs.UseCases", "SibGAU.Blogs.UseCases\SibGAU.Blogs.UseCases.csproj", "{B6AD4096-BC60-4DF7-9CC0-783F57608D88}"
@@ -30,10 +28,6 @@ Global
 		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8473219F-6403-4A05-B9A2-5D7A52385C61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E5D57CD-44A5-4752-94B0-23719F249510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E5D57CD-44A5-4752-94B0-23719F249510}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E5D57CD-44A5-4752-94B0-23719F249510}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E5D57CD-44A5-4752-94B0-23719F249510}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2CE3CB77-CBA7-4C2D-9F6D-E2CB647E2008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2CE3CB77-CBA7-4C2D-9F6D-E2CB647E2008}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE3CB77-CBA7-4C2D-9F6D-E2CB647E2008}.Release|Any CPU.ActiveCfg = Release|Any CPU
