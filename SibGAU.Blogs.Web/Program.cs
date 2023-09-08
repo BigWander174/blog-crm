@@ -24,11 +24,8 @@ if (connectionString is null)
 builder.Services.Configure<List<AdminCredentials>>(builder.Configuration.GetSection("Admins"));
 
 // Database.
-builder.Services.AddDbContext<IReadOnlyAppDbContext, AppDbContext>(options 
-        => options.UseNpgsql(connectionString)
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-
 builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseNpgsql(connectionString));
+
 builder.Services.AddAsyncInitializer<DatabaseInitializer>();
 
 // Add initializer for admin credentials to database.

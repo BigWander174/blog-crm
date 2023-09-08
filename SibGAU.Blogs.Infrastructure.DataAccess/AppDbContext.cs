@@ -5,7 +5,7 @@ using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
 namespace SibGAU.Blogs.Infrastructure.DataAccess;
 
-public class AppDbContext : IdentityDbContext<Author>, IAppDbContext, IReadOnlyAppDbContext
+public class AppDbContext : IdentityDbContext<Author>, IAppDbContext
 {
     /// <summary>
     /// App db context.

@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
 namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
@@ -9,13 +10,16 @@ namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
 /// </summary>
 public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, IReadOnlyCollection<BlogDto>>
 {
-    private readonly IReadOnlyAppDbContext context;
+    private readonly IAppDbContext context;
     private readonly IMapper mapper;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GetAllBlogsQueryHandler(IReadOnlyAppDbContext context, IMapper mapper)
+    public GetAllBlogsQueryHandler(
+        IAppDbContext context, 
+        IMapper mapper
+        )
     {
         this.context = context;
         this.mapper = mapper;
@@ -24,7 +28,7 @@ public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, IReadOn
     /// <inheritdoc />
     public async Task<IReadOnlyCollection<BlogDto>> Handle(GetAllBlogsQuery request, CancellationToken cancellationToken)
     {
-        var blogs = mapper.ProjectTo<BlogDto>(context.Blogs);
-        return blogs.ToList();
+        var blogs = await mapper.ProjectTo<BlogDto>(context.Blogs.AsNoTracking()).ToListAsync(cancellationToken);
+        return blogs;
     }
 }
