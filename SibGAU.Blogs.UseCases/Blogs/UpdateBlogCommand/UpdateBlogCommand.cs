@@ -5,7 +5,7 @@ namespace SibGAU.Blogs.UseCases.Blogs.UpdateBlogCommand;
 /// <summary>
 /// Update blog command.
 /// </summary>
-public class UpdateBlogCommand : IRequest<Unit>
+public record UpdateBlogCommand : IRequest<Unit>
 {
     /// <summary>
     /// Blog id.

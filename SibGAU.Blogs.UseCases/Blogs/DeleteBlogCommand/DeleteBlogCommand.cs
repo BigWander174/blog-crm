@@ -5,7 +5,7 @@ namespace SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
 /// <summary>
 /// Delete blog command.
 /// </summary>
-public class DeleteBlogCommand : IRequest<Unit>
+public record DeleteBlogCommand : IRequest<Unit>
 {
     /// <summary>
     /// Blog id.

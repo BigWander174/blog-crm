@@ -5,7 +5,7 @@ namespace SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 /// <summary>
 /// Login author command.
 /// </summary>
-public class LoginAuthorCommand : IRequest<Unit>
+public record LoginAuthorCommand : IRequest<Unit>
 {
     /// <summary>
     /// Login.

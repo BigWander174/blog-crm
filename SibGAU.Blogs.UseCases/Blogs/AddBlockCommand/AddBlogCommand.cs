@@ -5,7 +5,7 @@ namespace SibGAU.Blogs.UseCases.Blogs.AddBlockCommand;
 /// <summary>
 /// Add blog command.
 /// </summary>
-public class AddBlogCommand : IRequest<Unit>
+public record AddBlogCommand : IRequest<Unit>
 {
     /// <summary>
     /// Title.

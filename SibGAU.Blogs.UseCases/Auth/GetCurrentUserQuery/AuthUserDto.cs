@@ -3,7 +3,7 @@ namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 /// <summary>
 /// Auth user dto.
 /// </summary>
-public class AuthUserDto
+public record AuthUserDto
 {
     /// <summary>
     /// User name.
