@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 using SibGAU.Blogs.UseCases.Blogs.AddBlockCommand;
+using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
 using SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
 using SibGAU.Blogs.UseCases.Blogs.UpdateBlogCommand;
 
@@ -24,12 +25,26 @@ public class AdminController : Controller
     {
         this.mediator = mediator;
     }
+    
+    /// <summary>
+    /// Get all blogs page.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>View.</returns>
+    [HttpGet("blogs")]
+    public async Task<ViewResult> GetAllBlogsPage(CancellationToken cancellationToken)
+    {
+        var getAllBlogsQuery = new GetAllBlogsQuery();
+        var blogs = await mediator.Send(getAllBlogsQuery, cancellationToken);
+
+        return View(blogs);
+    }
 
     /// <summary>
     /// Add blog page.
     /// </summary>
     /// <returns>View.</returns>
-    [HttpGet]
+    [HttpGet("blogs/add")]
     public ViewResult AddBlogPage()
     {
         return View();
@@ -40,7 +55,7 @@ public class AdminController : Controller
     /// </summary>
     /// <param name="addBlogCommand">Add blog command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    [HttpPost]
+    [HttpPost("blogs")]
     public async Task AddBlogAsync(AddBlogCommand addBlogCommand, CancellationToken cancellationToken)
     {
         var getUserQuery = new GetCurrentUserQuery()
@@ -59,7 +74,7 @@ public class AdminController : Controller
     /// <param name="getBlogByIdQuery">Get blog by id query.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Blog id.</returns>
-    [HttpGet("{BlogId}")]
+    [HttpGet("blogs/{BlogId}")]
     public async Task<ViewResult> UpdateBlogPage([FromRoute] GetBlogByIdQuery getBlogByIdQuery, CancellationToken cancellationToken)
     {
         var blog = await mediator.Send(getBlogByIdQuery, cancellationToken);
@@ -72,7 +87,7 @@ public class AdminController : Controller
     /// <param name="blogId">Blog id.</param>
     /// <param name="updateBlogCommand">Update blog command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    [HttpPost("{blogId:int}")]
+    [HttpPost("blogs/{blogId:int}")]
     public async Task UpdateBlogAsync([FromRoute] int blogId, [FromForm] UpdateBlogCommand updateBlogCommand, CancellationToken cancellationToken)
     {
         updateBlogCommand.BlogId = blogId;

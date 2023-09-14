@@ -6,6 +6,11 @@ namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
 public record BlogDto
 {
     /// <summary>
+    /// Id.
+    /// </summary>
+    public required int Id { get; init; }
+    
+    /// <summary>
     /// Title.
     /// </summary>
     public required string Title { get; init; }
