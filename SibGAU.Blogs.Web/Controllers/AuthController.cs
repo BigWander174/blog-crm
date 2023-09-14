@@ -36,8 +36,9 @@ public class AuthController : Controller
     /// <param name="loginAuthorCommand">Login author command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     [HttpPost]
-    public async Task LoginAsync(LoginAuthorCommand loginAuthorCommand, CancellationToken cancellationToken)
+    public async Task<RedirectToActionResult> LoginAsync(LoginAuthorCommand loginAuthorCommand, CancellationToken cancellationToken)
     {
         await mediator.Send(loginAuthorCommand, cancellationToken);
+        return RedirectToAction("GetAllBlogsPage", "Admin");
     }
 }
