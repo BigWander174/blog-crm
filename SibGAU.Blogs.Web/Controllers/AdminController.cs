@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 using SibGAU.Blogs.UseCases.Blogs.AddBlockCommand;
+using SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
 using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
 using SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
 using SibGAU.Blogs.UseCases.Blogs.UpdateBlogCommand;
@@ -92,5 +93,21 @@ public class AdminController : Controller
     {
         updateBlogCommand.BlogId = blogId;
         await mediator.Send(updateBlogCommand, cancellationToken);
+    }
+
+    /// <summary>
+    /// Delete blog from database.
+    /// </summary>
+    /// <param name="blogId">blog id.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    [HttpPost("{blogId:int}")]
+    public async Task<RedirectToActionResult> DeleteBlogAsync([FromRoute] int blogId, CancellationToken cancellationToken)
+    {
+        var deleteBlogCommand = new DeleteBlogCommand()
+        {
+            BlogId = blogId
+        };
+        await mediator.Send(deleteBlogCommand, cancellationToken);
+        return RedirectToAction("GetAllBlogsPage");
     }
 }
