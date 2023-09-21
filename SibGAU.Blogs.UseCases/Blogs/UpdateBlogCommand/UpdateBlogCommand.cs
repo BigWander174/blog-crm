@@ -18,6 +18,11 @@ public record UpdateBlogCommand : IRequest<Unit>
     public string? Title { get; init; }
     
     /// <summary>
+    /// Short description.
+    /// </summary>
+    public string? ShortDescription { get; init; }
+    
+    /// <summary>
     /// Content.
     /// </summary>
     public string? Content { get; init; }

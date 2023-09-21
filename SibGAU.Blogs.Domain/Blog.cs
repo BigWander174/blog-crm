@@ -16,6 +16,11 @@ public class Blog
     public required string Title { get; set; }
     
     /// <summary>
+    /// Short description.
+    /// </summary>
+    public required string ShortDescription { get; set; }
+    
+    /// <summary>
     /// Content.
     /// </summary>
     public required string Content { get; set; }

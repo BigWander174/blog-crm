@@ -2,7 +2,7 @@ using MediatR;
 using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
-namespace SibGAU.Blogs.UseCases.Blogs.AddBlockCommand;
+namespace SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
 
 public class AddBlogCommandHandler : IRequestHandler<AddBlogCommand, Unit>
 {
@@ -16,12 +16,14 @@ public class AddBlogCommandHandler : IRequestHandler<AddBlogCommand, Unit>
         this.context = context;
     }
 
+    /// <inheritdoc />
     public async Task<Unit> Handle(AddBlogCommand request, CancellationToken cancellationToken)
     {
         var blog = new Blog
         {
             Title = request.Title,
             Content = request.Content,
+            ShortDescription = request.ShortDescription,
             AuthorId = request.AuthorId,
             CreatedAt = request.CreatedAt
         };

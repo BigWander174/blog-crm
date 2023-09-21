@@ -13,18 +13,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("AppDbContext");
+// Add admin credentials.
+builder.Services.Configure<List<AdminCredentials>>(builder.Configuration.GetSection("Admins"));
 
+// Database.
+var connectionString = builder.Configuration.GetConnectionString("AppDbContext");
 if (connectionString is null)
 {
     throw new ArgumentException("Connection string not provided", nameof(connectionString));
 }
 
-// Add admin credentials.
-builder.Services.Configure<List<AdminCredentials>>(builder.Configuration.GetSection("Admins"));
-
-// Database.
-builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options =>
+{
+    options.UseNpgsql(connectionString);
+});
 
 builder.Services.AddAsyncInitializer<DatabaseInitializer>();
 
@@ -43,6 +45,7 @@ builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(type
 
 // Automapper.
 builder.Services.AddAutoMapper(typeof(BlogsMappingProfile));
+
 var app = builder.Build();
 
 app.MapControllers();

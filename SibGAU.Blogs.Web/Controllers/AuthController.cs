@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 using SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 
 namespace SibGAU.Blogs.Web.Controllers;
@@ -36,9 +37,9 @@ public class AuthController : Controller
     /// <param name="loginAuthorCommand">Login author command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     [HttpPost]
-    public async Task<RedirectToActionResult> LoginAsync(LoginAuthorCommand loginAuthorCommand, CancellationToken cancellationToken)
+    public async Task<IActionResult> LoginAsync(LoginAuthorCommand loginAuthorCommand, CancellationToken cancellationToken)
     {
         await mediator.Send(loginAuthorCommand, cancellationToken);
-        return RedirectToAction("GetAllBlogsPage", "Admin");
+        return Ok();
     }
 }

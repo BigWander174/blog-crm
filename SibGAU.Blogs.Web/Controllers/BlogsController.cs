@@ -21,6 +21,11 @@ public class BlogsController : Controller
         this.mediator = mediator;
     }
 
+    /// <summary>
+    /// Get all blogs page.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>View.</returns>
     [HttpGet]
     public async Task<ViewResult> GetAllBlogsPage(CancellationToken cancellationToken)
     {
@@ -30,6 +35,12 @@ public class BlogsController : Controller
         return View(blogs);
     }
 
+    /// <summary>
+    /// Get blog page.
+    /// </summary>
+    /// <param name="getBlogByIdQuery">Get blog by id query.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>View.</returns>
     [HttpGet("{BlogId:int}")]
     public async Task<ViewResult> GetBlogPage([FromRoute] GetBlogByIdQuery getBlogByIdQuery,
         CancellationToken cancellationToken)

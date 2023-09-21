@@ -9,7 +9,7 @@ namespace SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 /// <summary>
 /// Login author command handler.
 /// </summary>
-public class LoginAuthorCommandHandler : IRequestHandler<Auth.LoginAuthorCommand.LoginAuthorCommand, Unit>
+public class LoginAuthorCommandHandler : IRequestHandler<LoginAuthorCommand, Unit>
 {
     private readonly SignInManager<Author> signInManager;
     private readonly ILogger<LoginAuthorCommandHandler> logger;
@@ -24,7 +24,7 @@ public class LoginAuthorCommandHandler : IRequestHandler<Auth.LoginAuthorCommand
     }
 
     /// <inheritdoc />
-    public async Task<Unit> Handle(Auth.LoginAuthorCommand.LoginAuthorCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(LoginAuthorCommand request, CancellationToken cancellationToken)
     {
         var user = await signInManager.UserManager.FindByEmailAsync(request.Email);
         if (user is null)
@@ -40,7 +40,7 @@ public class LoginAuthorCommandHandler : IRequestHandler<Auth.LoginAuthorCommand
             throw new NotFoundException("User with such email or password not found");
         }
         
-        await signInManager.SignInAsync(user, false)
+        await signInManager.SignInAsync(user, false, IdentityConstants.ApplicationScheme)
             .ConfigureAwait(false);
 
         return default;

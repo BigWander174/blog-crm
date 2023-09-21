@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
-using SibGAU.Blogs.UseCases.Blogs.AddBlockCommand;
+using SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
 using SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
 using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
 using SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
@@ -13,7 +13,7 @@ namespace SibGAU.Blogs.Web.Controllers;
 /// <summary>
 /// Admin controller.
 /// </summary>
-[Route("[controller]")]
+[Route("[controller]/blogs")]
 [Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
@@ -26,13 +26,13 @@ public class AdminController : Controller
     {
         this.mediator = mediator;
     }
-    
+
     /// <summary>
     /// Get all blogs page.
     /// </summary>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>View.</returns>
-    [HttpGet("blogs")]
+    [HttpGet]
     public async Task<ViewResult> GetAllBlogsPage(CancellationToken cancellationToken)
     {
         var getAllBlogsQuery = new GetAllBlogsQuery();
@@ -45,7 +45,7 @@ public class AdminController : Controller
     /// Add blog page.
     /// </summary>
     /// <returns>View.</returns>
-    [HttpGet("blogs/add")]
+    [HttpGet("add")]
     public ViewResult AddBlogPage()
     {
         return View();
@@ -56,8 +56,8 @@ public class AdminController : Controller
     /// </summary>
     /// <param name="addBlogCommand">Add blog command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    [HttpPost("blogs")]
-    public async Task AddBlogAsync(AddBlogCommand addBlogCommand, CancellationToken cancellationToken)
+    [HttpPost]
+    public async Task<RedirectToActionResult> AddBlogAsync(AddBlogCommand addBlogCommand, CancellationToken cancellationToken)
     {
         var getUserQuery = new GetCurrentUserQuery()
         {
@@ -67,6 +67,7 @@ public class AdminController : Controller
         var userDto = await mediator.Send(getUserQuery, cancellationToken);
         addBlogCommand.AuthorId = userDto.Id;
         await mediator.Send(addBlogCommand, cancellationToken);
+        return RedirectToAction("GetAllBlogsPage");
     }
 
     /// <summary>
@@ -75,7 +76,7 @@ public class AdminController : Controller
     /// <param name="getBlogByIdQuery">Get blog by id query.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Blog id.</returns>
-    [HttpGet("blogs/{BlogId}")]
+    [HttpGet("{BlogId:int}")]
     public async Task<ViewResult> UpdateBlogPage([FromRoute] GetBlogByIdQuery getBlogByIdQuery, CancellationToken cancellationToken)
     {
         var blog = await mediator.Send(getBlogByIdQuery, cancellationToken);
@@ -88,11 +89,12 @@ public class AdminController : Controller
     /// <param name="blogId">Blog id.</param>
     /// <param name="updateBlogCommand">Update blog command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    [HttpPost("blogs/{blogId:int}")]
-    public async Task UpdateBlogAsync([FromRoute] int blogId, [FromForm] UpdateBlogCommand updateBlogCommand, CancellationToken cancellationToken)
+    [HttpPost("{blogId:int}")]
+    public async Task<RedirectToActionResult> UpdateBlogAsync([FromRoute] int blogId, [FromForm] UpdateBlogCommand updateBlogCommand, CancellationToken cancellationToken)
     {
         updateBlogCommand.BlogId = blogId;
         await mediator.Send(updateBlogCommand, cancellationToken);
+        return RedirectToAction("GetAllBlogsPage");
     }
 
     /// <summary>
@@ -100,7 +102,7 @@ public class AdminController : Controller
     /// </summary>
     /// <param name="blogId">blog id.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    [HttpPost("{blogId:int}")]
+    [HttpPost("delete/{blogId:int}")]
     public async Task<RedirectToActionResult> DeleteBlogAsync([FromRoute] int blogId, CancellationToken cancellationToken)
     {
         var deleteBlogCommand = new DeleteBlogCommand()
@@ -108,6 +110,6 @@ public class AdminController : Controller
             BlogId = blogId
         };
         await mediator.Send(deleteBlogCommand, cancellationToken);
-        return RedirectToAction("GetAllBlogsPage");
+        return RedirectToAction("GetAllBlogsPage", "Admin");
     }
 }

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace SibGAU.Blogs.UseCases.Blogs.AddBlockCommand;
+namespace SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
 
 /// <summary>
 /// Add blog command.
@@ -11,6 +11,11 @@ public record AddBlogCommand : IRequest<Unit>
     /// Title.
     /// </summary>
     public required string Title { get; init; }
+    
+    /// <summary>
+    /// Short description.
+    /// </summary>
+    public required string ShortDescription { get; set; }
     
     /// <summary>
     /// Content.

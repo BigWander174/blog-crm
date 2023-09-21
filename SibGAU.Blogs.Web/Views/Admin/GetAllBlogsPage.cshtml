@@ -13,7 +13,7 @@
     {
         <a href="blogs/@blog.Id">
             @blog.Title
-            @blog.Content
+            @Html.Raw(blog.Content)
             @blog.CreatedAt
             @blog.AuthorName
         </a>

@@ -36,6 +36,12 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, Unit>
             blog.EditedAt = request.EditedAt;
         }
 
+        if (request.ShortDescription is not null)
+        {
+            blog.ShortDescription = request.ShortDescription;
+            blog.EditedAt = request.EditedAt;
+        }
+
         if (request.Content is not null)
         {
             blog.Content = request.Content;

@@ -1,4 +1,4 @@
-@model AddBlogCommand
+@model SibGAU.Blogs.UseCases.Blogs.AddBlogCommand.AddBlogCommand
 
 <!DOCTYPE html>
 
@@ -11,6 +11,9 @@
     <form asp-controller="Admin" asp-action="AddBlog" method="post">
         <label asp-for="Title"> Title </label>
         <input type="text" asp-for="Title" />
+        <br>
+        <label asp-for="ShortDescription"> ShortDescription </label>
+        <input type="text" asp-for="ShortDescription" />
         <br>
         <label asp-for="Content"> Content </label>
         <input type="text" asp-for="Content" />
