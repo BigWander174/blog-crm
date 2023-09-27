@@ -1,5 +1,8 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 using SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 
 namespace SibGAU.Blogs.Web.Controllers;
@@ -31,5 +34,20 @@ public class AuthController : ControllerBase
     {
         var loginDto = await mediator.Send(loginAuthorCommand, cancellationToken);
         return new JsonResult(loginDto);
+    }
+
+    /// <summary>
+    /// Get current user using jwt-token.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Json result.</returns>
+    [HttpGet("user")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetCurrentUserAsync(CancellationToken cancellationToken)
+    {
+        var getCurrentUserQuery = new GetCurrentUserQuery();
+        var currentUser = await mediator.Send(getCurrentUserQuery, cancellationToken);
+
+        return new JsonResult(currentUser);
     }
 }

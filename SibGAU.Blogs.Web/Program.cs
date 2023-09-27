@@ -9,6 +9,7 @@ using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 using SibGAU.Blogs.Infrastructure.DataAccess;
 using SibGAU.Blogs.UseCases;
+using SibGAU.Blogs.UseCases.Auth;
 using SibGAU.Blogs.UseCases.Blogs;
 using SibGAU.Blogs.UseCases.Common;
 using SibGAU.Blogs.Web.Controllers;
@@ -131,7 +132,9 @@ builder.Services.AddIdentity<Author, IdentityRole>()
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(typeof(Temp).Assembly));
 
 // Automapper.
-builder.Services.AddAutoMapper(typeof(BlogsMappingProfile), typeof(BlogsControllerMappingProfile));
+builder.Services.AddAutoMapper(typeof(BlogsMappingProfile), 
+    typeof(BlogsControllerMappingProfile),
+    typeof(AuthorMappingProfile));
 
 var app = builder.Build();
 
