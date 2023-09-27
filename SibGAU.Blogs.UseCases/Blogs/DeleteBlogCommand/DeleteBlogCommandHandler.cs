@@ -26,7 +26,7 @@ public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlogCommand, Unit>
         var blog = await context.Blogs.FirstOrDefaultAsync(blog => blog.Id == request.BlogId, cancellationToken);
         if (blog is null)
         {
-            throw new NotFoundException("blog not found");
+            throw new NotFoundException($"blog with id {request.BlogId} not found");
         }
 
         context.Blogs.Remove(blog);

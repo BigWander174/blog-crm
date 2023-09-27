@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 using SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
 
 namespace SibGAU.Blogs.Web.Controllers;
@@ -8,8 +7,9 @@ namespace SibGAU.Blogs.Web.Controllers;
 /// <summary>
 /// Auth controller.
 /// </summary>
-[Route("[controller]")]
-public class AuthController : Controller
+[ApiController]
+[Route("api/auth")]
+public class AuthController : ControllerBase
 {
     private readonly IMediator mediator;
 
@@ -22,24 +22,14 @@ public class AuthController : Controller
     }
 
     /// <summary>
-    /// Login page.
-    /// </summary>
-    /// <returns>Login view.</returns>
-    [HttpGet]
-    public ViewResult Login()
-    {
-        return View();
-    }
-
-    /// <summary>
     /// Login using identity.
     /// </summary>
     /// <param name="loginAuthorCommand">Login author command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    [HttpPost]
+    [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginAuthorCommand loginAuthorCommand, CancellationToken cancellationToken)
     {
-        await mediator.Send(loginAuthorCommand, cancellationToken);
-        return Ok();
+        var loginDto = await mediator.Send(loginAuthorCommand, cancellationToken);
+        return new JsonResult(loginDto);
     }
 }

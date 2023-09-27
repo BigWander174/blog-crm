@@ -1,11 +1,9 @@
-using MediatR;
-
-namespace SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
+namespace SibGAU.Blogs.Web.Controllers.Dtos;
 
 /// <summary>
-/// Add blog command.
+/// Add blog dto.
 /// </summary>
-public record AddBlogCommand : IRequest<Unit>
+public class AddBlogDto
 {
     /// <summary>
     /// Title.
@@ -21,9 +19,4 @@ public record AddBlogCommand : IRequest<Unit>
     /// Content.
     /// </summary>
     public required string Content { get; init; }
-    
-    /// <summary>
-    /// Author id.
-    /// </summary>
-    public string? AuthorId { get; set; }
 }

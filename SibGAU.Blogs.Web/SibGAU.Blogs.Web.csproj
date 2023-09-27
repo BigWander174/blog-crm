@@ -4,11 +4,13 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SibGAU.Blogs.Infrastructure.Abstractions\SibGAU.Blogs.Infrastructure.Abstractions.csproj" />
       <ProjectReference Include="..\SibGAU.Blogs.Infrastructure.DataAccess\SibGAU.Blogs.Infrastructure.DataAccess.csproj" />
+      <ProjectReference Include="..\SibGAU.Blogs.UseCases.Common\SibGAU.Blogs.UseCases.Common.csproj" />
       <ProjectReference Include="..\SibGAU.Blogs.UseCases\SibGAU.Blogs.UseCases.csproj" />
     </ItemGroup>
 
@@ -16,9 +18,24 @@
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
       <PackageReference Include="Extensions.Hosting.AsyncInitialization" Version="3.0.0" />
       <PackageReference Include="MediatR" Version="12.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.10" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Admin\AddBlogPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Admin\GetAllBlogsPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Admin\UpdateBlogPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Auth\Login.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Blogs\GetAllBlogsPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Blogs\GetBlogPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Error\ErrorPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
     </ItemGroup>
 
 </Project>

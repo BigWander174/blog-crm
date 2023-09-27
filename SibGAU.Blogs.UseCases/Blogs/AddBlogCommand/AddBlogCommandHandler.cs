@@ -25,7 +25,7 @@ public class AddBlogCommandHandler : IRequestHandler<AddBlogCommand, Unit>
             Content = request.Content,
             ShortDescription = request.ShortDescription,
             AuthorId = request.AuthorId,
-            CreatedAt = request.CreatedAt
+            CreatedAt = DateTime.UtcNow
         };
 
         await context.Blogs.AddAsync(blog, cancellationToken);

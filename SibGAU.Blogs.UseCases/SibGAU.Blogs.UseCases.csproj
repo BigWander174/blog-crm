@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SibGAU.Blogs.Infrastructure.Abstractions\SibGAU.Blogs.Infrastructure.Abstractions.csproj" />
+      <ProjectReference Include="..\SibGAU.Blogs.UseCases.Common\SibGAU.Blogs.UseCases.Common.csproj" />
     </ItemGroup>
 
 </Project>

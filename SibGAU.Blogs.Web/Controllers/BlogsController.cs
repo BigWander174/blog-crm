@@ -1,51 +1,112 @@
+using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
+using SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
+using SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
 using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
 using SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
+using SibGAU.Blogs.UseCases.Blogs.UpdateBlogCommand;
+using SibGAU.Blogs.Web.Controllers.Dtos;
 
 namespace SibGAU.Blogs.Web.Controllers;
 
 /// <summary>
 /// Blog controller.
 /// </summary>
-[Route("[controller]")]
-public class BlogsController : Controller
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Route("api/blogs")]
+public class BlogsController : ControllerBase
 {
     private readonly IMediator mediator;
+    private readonly IMapper mapper;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BlogsController(IMediator mediator)
+    public BlogsController(IMediator mediator, IMapper mapper)
     {
         this.mediator = mediator;
+        this.mapper = mapper;
     }
 
     /// <summary>
-    /// Get all blogs page.
+    /// Create blog.
+    /// </summary>
+    /// <param name="addBlogDto">Add blog command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Action result.</returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateBlogAsync(AddBlogDto addBlogDto, CancellationToken cancellationToken)
+    {
+        var addBlogCommand = mapper.Map<AddBlogCommand>(addBlogDto);
+        var getCurrentUserQuery = new GetCurrentUserQuery();
+        var user = await mediator.Send(getCurrentUserQuery, cancellationToken);
+        addBlogCommand.AuthorId = user.Id;
+
+        await mediator.Send(addBlogCommand, cancellationToken);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Get all blogs.
     /// </summary>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>View.</returns>
     [HttpGet]
-    public async Task<ViewResult> GetAllBlogsPage(CancellationToken cancellationToken)
+    [AllowAnonymous]
+    public async Task<JsonResult> GetAllBlogsAsync(CancellationToken cancellationToken)
     {
         var getAllBlogsQuery = new GetAllBlogsQuery();
         var blogs = await mediator.Send(getAllBlogsQuery, cancellationToken);
 
-        return View(blogs);
+        return new JsonResult(blogs);
     }
 
     /// <summary>
-    /// Get blog page.
+    /// Get blog.
     /// </summary>
     /// <param name="getBlogByIdQuery">Get blog by id query.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>View.</returns>
     [HttpGet("{BlogId:int}")]
-    public async Task<ViewResult> GetBlogPage([FromRoute] GetBlogByIdQuery getBlogByIdQuery,
+    [AllowAnonymous]
+    public async Task<JsonResult> GetBlogAsync([FromRoute] GetBlogByIdQuery getBlogByIdQuery,
         CancellationToken cancellationToken)
     {
         var blog = await mediator.Send(getBlogByIdQuery, cancellationToken);
-        return View(blog);
+        return new JsonResult(blog);
+    }
+
+    /// <summary>
+    /// Update blog.
+    /// </summary>
+    /// <param name="blogId">Blog id.</param>
+    /// <param name="updateBlogCommand">Update blog command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns></returns>
+    [HttpPatch("{blogId:int}")]
+    public async Task<IActionResult> UpdateBlogAsync([FromRoute] int blogId,
+        [FromBody] UpdateBlogCommand updateBlogCommand, CancellationToken cancellationToken)
+    {
+        updateBlogCommand.BlogId = blogId;
+        await mediator.Send(updateBlogCommand, cancellationToken);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Delete blog.
+    /// </summary>
+    /// <param name="deleteBlogCommand">Delete blog command.</param>
+    /// <param name="cancellationToken">Cancellation token,</param>
+    /// <returns>Action result.</returns>
+    [HttpDelete("{BlogId:int}")]
+    public async Task<IActionResult> DeleteBlogAsync([FromRoute] DeleteBlogCommand deleteBlogCommand, CancellationToken cancellationToken)
+    {
+        await mediator.Send(deleteBlogCommand, cancellationToken);
+        return Ok();
     }
 }

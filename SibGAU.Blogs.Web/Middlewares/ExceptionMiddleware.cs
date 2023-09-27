@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Text.Json;
 using Saritasa.Tools.Domain.Exceptions;
+using SibGAU.Blogs.Web.Middlewares.Dtos;
 
 namespace SibGAU.Blogs.Web.Middlewares;
 
@@ -18,32 +16,29 @@ public class ExceptionMiddleware : IMiddleware
         {
             await next(context);
         }
-        catch (NotFoundException exception)
+        catch (NotFoundException notFoundException)
         {
-            await GenerateErrorPageAsync(context, exception.Message);
+            await GenerateErrorResponse(context, notFoundException.Message, StatusCodes.Status404NotFound);
+        }
+        catch (Exception exception)
+        {
+            await GenerateErrorResponse(context, exception.Message, StatusCodes.Status400BadRequest);
         }
     }
 
-    private async Task GenerateErrorPageAsync(HttpContext context, string exceptionMessage)
+    private async Task GenerateErrorResponse(HttpContext context, string message, int statusCode)
     {
-        var viewResult = new ViewResult()
+        var errorResponse = new ErrorResponse()
         {
-            ViewName = "~/Views/Error/ErrorPage.cshtml"
+            Title = "Something went wrong",
+            Message = message,
+            StatusCode = statusCode
         };
-        var viewDataDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(),
-            new ModelStateDictionary())
-        {
-            Model = exceptionMessage
-        };
-        viewResult.ViewData = viewDataDictionary;
 
-            
-        var executor = context.RequestServices
-            .GetRequiredService<IActionResultExecutor<ViewResult>>();
-        var routeData = context.GetRouteData();
-        var actionContext = new ActionContext(context, routeData,
-            new Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor());
+        var response = JsonSerializer.Serialize(errorResponse);
 
-        await executor.ExecuteAsync(actionContext, viewResult);  
+        context.Response.StatusCode = statusCode;
+        context.Response.ContentType = "text/json";
+        await context.Response.WriteAsync(response, CancellationToken.None);
     }
 }

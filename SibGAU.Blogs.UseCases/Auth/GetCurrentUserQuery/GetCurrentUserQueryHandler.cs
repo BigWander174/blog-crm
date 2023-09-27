@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -11,39 +12,37 @@ namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 /// </summary>
 public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, AuthUserDto>
 {
-    private readonly UserManager<Author> userManager;
+    private readonly SignInManager<Author> signInManager;
     private readonly ILogger<GetCurrentUserQueryHandler> logger;
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public GetCurrentUserQueryHandler(
-        UserManager<Author> userManager, 
+        SignInManager<Author> signInManager, 
         ILogger<GetCurrentUserQueryHandler> logger)
     {
-        this.userManager = userManager;
+        this.signInManager = signInManager;
         this.logger = logger;
     }
 
     /// <inheritdoc />
     public async Task<AuthUserDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-        var userName = request.UserName;
-        if (userName is null)
+        var userIdentifier = signInManager.Context.User.FindFirst(ClaimTypes.Sid)?.Value;
+        if (userIdentifier is null)
         {
-            logger.LogWarning("User name was not provided");
-            throw new ArgumentException("User name was null");
-        }
-        var user = await userManager.FindByNameAsync(userName);
-        if (user is null)
-        {
-            logger.LogWarning("User with username {UserName} not found", request.UserName);
-            throw new NotFoundException("User is authorized");
+            throw new ArgumentException("User identifier is null");
         }
 
+        var author = await signInManager.UserManager.FindByEmailAsync(userIdentifier);
+        if (author is null)
+        {
+            throw new NotFoundException($"User with email {userIdentifier} was not found");
+        }
         return new AuthUserDto()
         {
-            Id = user.Id
+            Id = author.Id
         };
     }
 }
