@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
 using SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
+using SibGAU.Blogs.UseCases.Auth.VerifyJwtTokenQuery;
 
 namespace SibGAU.Blogs.Web.Controllers;
 
@@ -49,5 +50,17 @@ public class AuthController : ControllerBase
         var currentUser = await mediator.Send(getCurrentUserQuery, cancellationToken);
 
         return new JsonResult(currentUser);
+    }
+
+    /// <summary>
+    /// Verify jwt token.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Json result.</returns>
+    [HttpPost("token/verify")]
+    public async Task<IActionResult> VerifyJwtTokenAsync(VerifyJwtTokenQuery verifyTokenQuery, CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(verifyTokenQuery, cancellationToken);
+        return new JsonResult(result);
     }
 }
