@@ -1,9 +1,9 @@
-namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
+namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogs;
 
 /// <summary>
 /// Blog dto.
 /// </summary>
-public record BlogDto
+public class BlogDto
 {
     /// <summary>
     /// Id.
@@ -23,7 +23,7 @@ public record BlogDto
     /// <summary>
     /// Author.
     /// </summary>
-    public required string AuthorName { get; init; }
+    public required string UserName { get; set; }
     
     /// <summary>
     /// Created at.

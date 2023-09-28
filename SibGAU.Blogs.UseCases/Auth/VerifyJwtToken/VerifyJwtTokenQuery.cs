@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace SibGAU.Blogs.UseCases.Auth.VerifyJwtTokenQuery;
+namespace SibGAU.Blogs.UseCases.Auth.VerifyJwtToken;
 
 /// <summary>
 /// Verify jwt token query.

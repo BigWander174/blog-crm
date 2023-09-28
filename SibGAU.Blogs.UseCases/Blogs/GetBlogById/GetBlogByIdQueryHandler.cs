@@ -4,10 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Saritasa.Tools.Domain.Exceptions;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
+using SibGAU.Blogs.UseCases.Blogs.GetAllBlogs;
 
-namespace SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
+namespace SibGAU.Blogs.UseCases.Blogs.GetBlogById;
 
-public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, GetBlogDto>
+/// <summary>
+/// Handler for get blog by id query.
+/// </summary>
+public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, BlogDto>
 {
     private readonly IAppDbContext context;
     private readonly IMapper mapper;
@@ -26,10 +30,11 @@ public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, GetBlog
     }
 
     /// <inheritdoc />
-    public async Task<GetBlogDto> Handle(GetBlogByIdQuery request, CancellationToken cancellationToken)
+    public async Task<BlogDto> Handle(GetBlogByIdQuery request, CancellationToken cancellationToken)
     {
         var blog = await context.Blogs
             .AsNoTracking()
+            .Include(blog => blog.Author)
             .FirstOrDefaultAsync(blog => blog.Id == request.BlogId, cancellationToken);
         if (blog is null)
         {
@@ -37,6 +42,6 @@ public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, GetBlog
             throw new NotFoundException($"Blog with id {request.BlogId} was not found");
         }
 
-        return mapper.Map<GetBlogDto>(blog);
+        return mapper.Map<BlogDto>(blog);
     }
 }

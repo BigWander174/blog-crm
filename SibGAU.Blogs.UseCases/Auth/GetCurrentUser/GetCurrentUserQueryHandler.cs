@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using AutoMapper;
 using MediatR;
@@ -8,12 +7,12 @@ using Microsoft.Extensions.Logging;
 using Saritasa.Tools.Domain.Exceptions;
 using SibGAU.Blogs.Domain;
 
-namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
+namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUser;
 
 /// <summary>
 /// Get current user query handler.
 /// </summary>
-public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, AuthUserDto>
+public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUser.GetCurrentUserQuery, AuthUserDto>
 {
     private readonly SignInManager<Author> signInManager;
     private readonly IMapper mapper;
@@ -33,12 +32,8 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, A
     }
     
     /// <inheritdoc />
-    public async Task<AuthUserDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
+    public async Task<AuthUserDto> Handle(GetCurrentUser.GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-        var user = signInManager.Context.User;
-        var jwtExpired = user.FindFirst(JwtRegisteredClaimNames.Exp)?.Value;
-
-        var time = DateTimeOffset.FromUnixTimeSeconds(int.Parse(jwtExpired)).DateTime;
         var userIdentifier = signInManager.Context.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (userIdentifier is null)
         {

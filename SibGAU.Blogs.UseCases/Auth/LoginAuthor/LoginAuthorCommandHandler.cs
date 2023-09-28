@@ -6,12 +6,12 @@ using Saritasa.Tools.Domain.Exceptions;
 using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.UseCases.Common;
 
-namespace SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
+namespace SibGAU.Blogs.UseCases.Auth.LoginAuthor;
 
 /// <summary>
 /// Login author command handler.
 /// </summary>
-public class LoginAuthorCommandHandler : IRequestHandler<LoginAuthorCommand, LoginDto>
+public class LoginAuthorCommandHandler : IRequestHandler<LoginAuthor.LoginAuthorCommand, LoginDto>
 {
     private readonly JwtTokenGenerator jwtTokenGenerator;
     private readonly int expiresInMinutes;
@@ -34,7 +34,7 @@ public class LoginAuthorCommandHandler : IRequestHandler<LoginAuthorCommand, Log
     }
 
     /// <inheritdoc />
-    public async Task<LoginDto> Handle(LoginAuthorCommand request, CancellationToken cancellationToken)
+    public async Task<LoginDto> Handle(LoginAuthor.LoginAuthorCommand request, CancellationToken cancellationToken)
     {
         var user = await userManager.FindByEmailAsync(request.Email);
         if (user is null)

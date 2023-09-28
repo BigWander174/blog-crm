@@ -1,9 +1,10 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
-namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
+namespace SibGAU.Blogs.UseCases.Blogs.GetAllBlogs;
 
 /// <summary>
 /// Get all blogs query handler.
@@ -28,7 +29,10 @@ public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, IReadOn
     /// <inheritdoc />
     public async Task<IReadOnlyCollection<BlogDto>> Handle(GetAllBlogsQuery request, CancellationToken cancellationToken)
     {
-        var blogs = await mapper.ProjectTo<BlogDto>(context.Blogs.AsNoTracking()).ToListAsync(cancellationToken);
-        return blogs;
+        return await context.Blogs
+            .AsNoTracking()
+            .Include(blog => blog.Author)
+            .ProjectTo<BlogDto>(mapper.ConfigurationProvider)
+            .ToListAsync(cancellationToken);
     }
 }

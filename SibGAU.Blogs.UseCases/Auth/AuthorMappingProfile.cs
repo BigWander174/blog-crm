@@ -1,7 +1,6 @@
 using AutoMapper;
 using SibGAU.Blogs.Domain;
-using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
-using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
+using SibGAU.Blogs.UseCases.Auth.GetCurrentUser;
 
 namespace SibGAU.Blogs.UseCases.Auth;
 
@@ -15,7 +14,6 @@ public class AuthorMappingProfile : Profile
     /// </summary>
     public AuthorMappingProfile()
     {
-        CreateMap<Blog, BlogDto>();
         CreateMap<Author, AuthUserDto>();
     }
 }

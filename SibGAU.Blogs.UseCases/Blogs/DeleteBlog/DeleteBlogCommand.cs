@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
+namespace SibGAU.Blogs.UseCases.Blogs.DeleteBlog;
 
 /// <summary>
 /// Delete blog command.

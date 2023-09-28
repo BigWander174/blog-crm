@@ -1,6 +1,6 @@
-using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
+using SibGAU.Blogs.UseCases.Blogs.GetAllBlogs;
 
-namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
+namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUser;
 
 /// <summary>
 /// Auth user dto.

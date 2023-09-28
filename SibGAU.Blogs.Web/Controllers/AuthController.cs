@@ -2,9 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
-using SibGAU.Blogs.UseCases.Auth.LoginAuthorCommand;
-using SibGAU.Blogs.UseCases.Auth.VerifyJwtTokenQuery;
+using SibGAU.Blogs.UseCases.Auth.GetCurrentUser;
+using SibGAU.Blogs.UseCases.Auth.LoginAuthor;
+using SibGAU.Blogs.UseCases.Auth.VerifyJwtToken;
 
 namespace SibGAU.Blogs.Web.Controllers;
 
@@ -55,7 +55,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Verify jwt token.
     /// </summary>
-    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <param name="verifyTokenQuery">Verify token query.</param>
     /// <returns>Json result.</returns>
     [HttpPost("token/verify")]
     public async Task<IActionResult> VerifyJwtTokenAsync(VerifyJwtTokenQuery verifyTokenQuery, CancellationToken cancellationToken)

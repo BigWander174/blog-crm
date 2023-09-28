@@ -11,8 +11,4 @@
       <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\SibGAU.Blogs.Domain\SibGAU.Blogs.Domain.csproj" />
-    </ItemGroup>
-
 </Project>

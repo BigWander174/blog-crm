@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Saritasa.Tools.Domain.Exceptions;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
-namespace SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
+namespace SibGAU.Blogs.UseCases.Blogs.DeleteBlog;
 
 /// <summary>
 /// Handler for delete blog command.
 /// </summary>
-public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlogCommand, Unit>
+public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlog.DeleteBlogCommand, Unit>
 {
     private readonly IAppDbContext context;
 
@@ -21,7 +21,7 @@ public class DeleteBlogCommandHandler : IRequestHandler<DeleteBlogCommand, Unit>
     }
 
     /// <inheritdoc />
-    public async Task<Unit> Handle(DeleteBlogCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteBlog.DeleteBlogCommand request, CancellationToken cancellationToken)
     {
         var blog = await context.Blogs.FirstOrDefaultAsync(blog => blog.Id == request.BlogId, cancellationToken);
         if (blog is null)

@@ -5,12 +5,12 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SibGAU.Blogs.UseCases.Common;
 
-namespace SibGAU.Blogs.UseCases.Auth.VerifyJwtTokenQuery;
+namespace SibGAU.Blogs.UseCases.Auth.VerifyJwtToken;
 
 /// <summary>
 /// Handler for verify jwt token query.
 /// </summary>
-public class VerifyJwtTokenQueryHandler : IRequestHandler<VerifyJwtTokenQuery, TokenVerificationDto>
+public class VerifyJwtTokenQueryHandler : IRequestHandler<VerifyJwtToken.VerifyJwtTokenQuery, TokenVerificationDto>
 {
     private readonly JwtSettings jwtSettings;
     
@@ -23,7 +23,7 @@ public class VerifyJwtTokenQueryHandler : IRequestHandler<VerifyJwtTokenQuery, T
     }
 
     /// <inheritdoc />
-    public async Task<TokenVerificationDto> Handle(VerifyJwtTokenQuery request, CancellationToken cancellationToken)
+    public async Task<TokenVerificationDto> Handle(VerifyJwtToken.VerifyJwtTokenQuery request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(request.Token))
         {
@@ -61,7 +61,7 @@ public class VerifyJwtTokenQueryHandler : IRequestHandler<VerifyJwtTokenQuery, T
                 IsValid = true
             };
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return new TokenVerificationDto()
             {

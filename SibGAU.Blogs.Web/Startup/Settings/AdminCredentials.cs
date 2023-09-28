@@ -8,7 +8,7 @@ public class AdminCredentials
     /// <summary>
     /// Email.
     /// </summary>
-    public string? Email { get; init; }
+    public required string Email { get; init; }
     
     /// <summary>
     /// Login.

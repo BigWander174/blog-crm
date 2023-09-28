@@ -3,11 +3,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SibGAU.Blogs.UseCases.Auth.GetCurrentUserQuery;
-using SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
-using SibGAU.Blogs.UseCases.Blogs.DeleteBlogCommand;
-using SibGAU.Blogs.UseCases.Blogs.GetAllBlogsQuery;
-using SibGAU.Blogs.UseCases.Blogs.GetBlogByIdQuery;
+using SibGAU.Blogs.UseCases.Auth.GetCurrentUser;
+using SibGAU.Blogs.UseCases.Blogs.AddBlog;
+using SibGAU.Blogs.UseCases.Blogs.DeleteBlog;
+using SibGAU.Blogs.UseCases.Blogs.GetAllBlogs;
+using SibGAU.Blogs.UseCases.Blogs.GetBlogById;
 using SibGAU.Blogs.UseCases.Blogs.UpdateBlogCommand;
 using SibGAU.Blogs.Web.Controllers.Dtos;
 

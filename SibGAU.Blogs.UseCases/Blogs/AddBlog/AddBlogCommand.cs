@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace SibGAU.Blogs.UseCases.Blogs.AddBlogCommand;
+namespace SibGAU.Blogs.UseCases.Blogs.AddBlog;
 
 /// <summary>
 /// Add blog command.
@@ -25,5 +25,5 @@ public record AddBlogCommand : IRequest<Unit>
     /// <summary>
     /// Author id.
     /// </summary>
-    public string? AuthorId { get; set; }
+    public required string AuthorId { get; set; }
 }
