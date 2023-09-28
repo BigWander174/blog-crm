@@ -36,6 +36,16 @@ public class Blog
     public Author Author { get; init; } = null!;
     
     /// <summary>
+    /// Rubric id.
+    /// </summary>
+    public int? RubricId { get; set; }
+
+    /// <summary>
+    /// Rubric.
+    /// </summary>
+    public Rubric? Rubric { get; set; }
+    
+    /// <summary>
     /// Created at.
     /// </summary>
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;

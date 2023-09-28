@@ -17,4 +17,9 @@ public interface IDbContextWithSets
     /// Blogs.
     /// </summary>
     DbSet<Blog> Blogs { get; set; }
+    
+    /// <summary>
+    /// Rubrics.
+    /// </summary>
+    DbSet<Rubric> Rubrics { get; set; }
 }

@@ -1,5 +1,4 @@
 using Extensions.Hosting.AsyncInitialization;
-using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Infrastructure.DataAccess;
 
 namespace SibGAU.Blogs.Web.Startup.Initializers;
@@ -22,6 +21,6 @@ public class DatabaseInitializer : IAsyncInitializer
     /// <inheritdoc />
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
-        await context.Database.MigrateAsync(cancellationToken);
+        await context.Database.EnsureCreatedAsync(cancellationToken);
     }
 }

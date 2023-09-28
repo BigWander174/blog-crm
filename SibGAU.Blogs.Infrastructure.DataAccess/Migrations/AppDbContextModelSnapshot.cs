@@ -252,7 +252,7 @@ namespace SibGAU.Blogs.Infrastructure.DataAccess.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

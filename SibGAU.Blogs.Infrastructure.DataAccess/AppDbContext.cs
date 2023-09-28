@@ -19,4 +19,7 @@ public class AppDbContext : IdentityDbContext<Author>, IAppDbContext
 
     /// <inheritdoc />
     public DbSet<Blog> Blogs { get; set; }
+
+    /// <inheritdoc />
+    public DbSet<Rubric> Rubrics { get; set; }
 }
