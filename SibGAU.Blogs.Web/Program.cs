@@ -12,6 +12,7 @@ using SibGAU.Blogs.UseCases;
 using SibGAU.Blogs.UseCases.Auth;
 using SibGAU.Blogs.UseCases.Blogs;
 using SibGAU.Blogs.UseCases.Common;
+using SibGAU.Blogs.UseCases.Rubric;
 using SibGAU.Blogs.Web.Controllers;
 using SibGAU.Blogs.Web.Middlewares;
 using SibGAU.Blogs.Web.Startup.Initializers;
@@ -133,8 +134,9 @@ builder.Services.AddMediatR(options => options.RegisterServicesFromAssembly(type
 
 // Automapper.
 builder.Services.AddAutoMapper(typeof(BlogsMappingProfile), 
-    typeof(BlogsControllerMappingProfile),
-    typeof(AuthorMappingProfile));
+    typeof(ControllersMappingProfile),
+    typeof(AuthorMappingProfile),
+    typeof(RubricsMappingProfile));
 
 var app = builder.Build();
 

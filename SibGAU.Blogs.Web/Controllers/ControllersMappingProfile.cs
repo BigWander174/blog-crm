@@ -7,12 +7,12 @@ namespace SibGAU.Blogs.Web.Controllers;
 /// <summary>
 /// Blogs controller mapping profile.
 /// </summary>
-public class BlogsControllerMappingProfile : Profile
+public class ControllersMappingProfile : Profile
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BlogsControllerMappingProfile()
+    public ControllersMappingProfile()
     {
         CreateMap<AddBlogDto, AddBlogCommand>();
     }    
