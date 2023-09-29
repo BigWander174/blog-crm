@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Rubrics.CreateRubric;
+using SibGAU.Blogs.UseCases.Rubrics.DeleteRubric;
 using SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
 
 namespace SibGAU.Blogs.Web.Controllers;
@@ -47,5 +48,18 @@ public class RubricsController : ControllerBase
         var getAllRubricsQuery = new GetAllRubricsQuery();
         var rubrics = await mediator.Send(getAllRubricsQuery, cancellationToken);
         return new JsonResult(rubrics);
+    }
+
+    /// <summary>
+    /// Delete rubric.
+    /// </summary>
+    /// <param name="deleteRubricCommand">Delete rubric command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Action result.</returns>
+    [HttpDelete]
+    public async Task<IActionResult> DeleteRubricAsync(DeleteRubricCommand deleteRubricCommand, CancellationToken cancellationToken)
+    {
+        await mediator.Send(deleteRubricCommand, cancellationToken);
+        return Ok();
     }
 }
