@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SibGAU.Blogs.UseCases.Tags.DeleteTag;
 using SibGAU.Blogs.UseCases.Tags.GetAllTags;
 using SibGAU.Blogs.UseCases.Tags.UpdateTag;
 using SibGAU.Blogs.Web.Controllers.Dtos;
@@ -58,6 +59,19 @@ public class TagsController : ControllerBase
         updateTagCommand.TagId = tagId;
 
         await mediator.Send(updateTagCommand, cancellationToken);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Delete tag.
+    /// </summary>
+    /// <param name="deleteTagCommand">Delete blog command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Action result.</returns>
+    [HttpDelete("{TagId:int}")]
+    public async Task<IActionResult> DeleteTagAsync([FromRoute] DeleteTagCommand deleteTagCommand, CancellationToken cancellationToken)
+    {
+        await mediator.Send(deleteTagCommand, cancellationToken);
         return Ok();
     }
 }
