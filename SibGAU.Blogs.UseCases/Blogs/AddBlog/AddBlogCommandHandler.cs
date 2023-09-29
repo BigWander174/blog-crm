@@ -29,6 +29,11 @@ public class AddBlogCommandHandler : IRequestHandler<AddBlogCommand, Unit>
     /// <inheritdoc />
     public async Task<Unit> Handle(AddBlogCommand request, CancellationToken cancellationToken)
     {
+        if (string.IsNullOrEmpty(request.Content))
+        {
+            throw new ArgumentException("Field content is null or empty");
+        }
+
         var blog = mapper.Map<Blog>(request);
         if (string.IsNullOrEmpty(request.Rubric) == false)
         {
