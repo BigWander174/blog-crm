@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SibGAU.Blogs.UseCases.Rubric.GetAllRubrics;
+using SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
 
 namespace SibGAU.Blogs.Web.Controllers;
 

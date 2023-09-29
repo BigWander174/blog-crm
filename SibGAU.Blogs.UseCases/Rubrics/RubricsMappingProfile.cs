@@ -1,7 +1,8 @@
 using AutoMapper;
-using SibGAU.Blogs.UseCases.Rubric.GetAllRubrics;
+using SibGAU.Blogs.Domain;
+using SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
 
-namespace SibGAU.Blogs.UseCases.Rubric;
+namespace SibGAU.Blogs.UseCases.Rubrics;
 
 /// <summary>
 /// Rubrics mapping profile.
@@ -13,6 +14,6 @@ public class RubricsMappingProfile : Profile
     /// </summary>
     public RubricsMappingProfile()
     {
-        CreateMap<Domain.Rubric, RubricDto>();
+        CreateMap<Rubric, RubricDto>();
     }
 }

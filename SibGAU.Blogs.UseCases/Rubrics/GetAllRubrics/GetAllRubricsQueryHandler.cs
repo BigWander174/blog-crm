@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
-namespace SibGAU.Blogs.UseCases.Rubric.GetAllRubrics;
+namespace SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
 
 /// <summary>
 /// Handler for get all rubrics query.

@@ -12,7 +12,7 @@ using SibGAU.Blogs.UseCases;
 using SibGAU.Blogs.UseCases.Auth;
 using SibGAU.Blogs.UseCases.Blogs;
 using SibGAU.Blogs.UseCases.Common;
-using SibGAU.Blogs.UseCases.Rubric;
+using SibGAU.Blogs.UseCases.Rubrics;
 using SibGAU.Blogs.Web.Controllers;
 using SibGAU.Blogs.Web.Middlewares;
 using SibGAU.Blogs.Web.Startup.Initializers;

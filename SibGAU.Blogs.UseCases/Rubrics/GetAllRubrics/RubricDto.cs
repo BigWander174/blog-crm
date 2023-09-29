@@ -1,4 +1,4 @@
-namespace SibGAU.Blogs.UseCases.Rubric.GetAllRubrics;
+namespace SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
 
 /// <summary>
 /// Rubric dto.
