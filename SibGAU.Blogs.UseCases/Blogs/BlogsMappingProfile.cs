@@ -17,7 +17,10 @@ public class BlogsMappingProfile : Profile
     {
 
         CreateMap<Blog, BlogDto>()
-            .ForMember(blogDto => blogDto.UserName, src => src.MapFrom(blog => blog.Author.UserName));
-        CreateMap<AddBlogCommand, Blog>();
+            .ForMember(blogDto => blogDto.UserName, src => src.MapFrom(blog => blog.Author.UserName))
+            .ForMember(blogDto => blogDto.Rubric, src => src.MapFrom(blog => blog.Rubric.Name));
+        
+        CreateMap<AddBlogCommand, Blog>()
+            .ForMember(blog => blog.Rubric, src => src.Ignore());
     }
 }

@@ -29,10 +29,18 @@ public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, IReadOn
     /// <inheritdoc />
     public async Task<IReadOnlyCollection<BlogDto>> Handle(GetAllBlogsQuery request, CancellationToken cancellationToken)
     {
-        return await context.Blogs
-            .AsNoTracking()
-            .Include(blog => blog.Author)
-            .ProjectTo<BlogDto>(mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+        var blogs = context.Blogs
+            .AsNoTracking();
+
+        if (request.RubricNames.Any())
+        {
+            blogs = blogs.Include(blog => blog.Rubric)
+                .Where(blog => blog.Rubric != null && request.RubricNames.Contains(blog.Rubric.Name));
+        }
+
+        var blogDtos = blogs.Include(blog => blog.Author)
+            .ProjectTo<BlogDto>(mapper.ConfigurationProvider);
+
+        return await blogDtos.ToListAsync(cancellationToken);
     }
 }

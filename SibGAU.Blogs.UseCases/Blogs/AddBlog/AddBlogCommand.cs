@@ -13,15 +13,15 @@ public record AddBlogCommand : IRequest<Unit>
     public required string Title { get; init; }
     
     /// <summary>
-    /// Short description.
-    /// </summary>
-    public required string ShortDescription { get; set; }
-    
-    /// <summary>
     /// Content.
     /// </summary>
     public required string Content { get; init; }
     
+    /// <summary>
+    /// Rubric.
+    /// </summary>
+    public string? Rubric { get; init; }
+
     /// <summary>
     /// Author id.
     /// </summary>

@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SibGAU.Blogs.Domain;
 using SibGAU.Blogs.Infrastructure.Abstractions.DbContexts;
 
@@ -29,6 +30,20 @@ public class AddBlogCommandHandler : IRequestHandler<AddBlogCommand, Unit>
     public async Task<Unit> Handle(AddBlogCommand request, CancellationToken cancellationToken)
     {
         var blog = mapper.Map<Blog>(request);
+        if (string.IsNullOrEmpty(request.Rubric) == false)
+        {
+            var rubricFromDatabase = await context.Rubrics
+                .FirstOrDefaultAsync(rubric => rubric.Name == request.Rubric, cancellationToken);
+            if (rubricFromDatabase is null)
+            {
+                rubricFromDatabase = new Rubric()
+                {
+                    Name = request.Rubric
+                };
+            }
+
+            blog.Rubric = rubricFromDatabase;
+        }
 
         await context.Blogs.AddAsync(blog, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);

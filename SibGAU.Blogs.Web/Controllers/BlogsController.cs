@@ -54,15 +54,14 @@ public class BlogsController : ControllerBase
     /// <summary>
     /// Get all blogs.
     /// </summary>
+    /// <param name="getAllBlogsQuery">Get all blogs query.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>View.</returns>
     [HttpGet]
     [AllowAnonymous]
-    public async Task<JsonResult> GetAllBlogsAsync(CancellationToken cancellationToken)
+    public async Task<JsonResult> GetAllBlogsAsync([FromQuery] GetAllBlogsQuery getAllBlogsQuery, CancellationToken cancellationToken)
     {
-        var getAllBlogsQuery = new GetAllBlogsQuery();
         var blogs = await mediator.Send(getAllBlogsQuery, cancellationToken);
-
         return new JsonResult(blogs);
     }
 
@@ -85,13 +84,14 @@ public class BlogsController : ControllerBase
     /// Update blog.
     /// </summary>
     /// <param name="blogId">Blog id.</param>
-    /// <param name="updateBlogCommand">Update blog command.</param>
+    /// <param name="updateBlogDto">Update blog dto.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns></returns>
     [HttpPatch("{blogId:int}")]
     public async Task<IActionResult> UpdateBlogAsync([FromRoute] int blogId,
-        [FromBody] UpdateBlogCommand updateBlogCommand, CancellationToken cancellationToken)
+        [FromBody] UpdateBlogDto updateBlogDto, CancellationToken cancellationToken)
     {
+        var updateBlogCommand = mapper.Map<UpdateBlogCommand>(updateBlogDto);
         updateBlogCommand.BlogId = blogId;
         await mediator.Send(updateBlogCommand, cancellationToken);
         return Ok();

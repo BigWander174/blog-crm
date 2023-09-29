@@ -22,4 +22,15 @@ public class AppDbContext : IdentityDbContext<Author>, IAppDbContext
 
     /// <inheritdoc />
     public DbSet<Rubric> Rubrics { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<Rubric>()
+            .HasMany(rubric => rubric.Blogs)
+            .WithOne(blog => blog.Rubric)
+            .OnDelete(DeleteBehavior.SetNull);
+    }
 }

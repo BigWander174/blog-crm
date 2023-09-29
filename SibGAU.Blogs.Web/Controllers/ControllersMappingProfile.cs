@@ -1,5 +1,6 @@
 using AutoMapper;
 using SibGAU.Blogs.UseCases.Blogs.AddBlog;
+using SibGAU.Blogs.UseCases.Blogs.UpdateBlogCommand;
 using SibGAU.Blogs.Web.Controllers.Dtos;
 
 namespace SibGAU.Blogs.Web.Controllers;
@@ -15,5 +16,7 @@ public class ControllersMappingProfile : Profile
     public ControllersMappingProfile()
     {
         CreateMap<AddBlogDto, AddBlogCommand>();
+
+        CreateMap<UpdateBlogDto, UpdateBlogCommand>();
     }    
 }

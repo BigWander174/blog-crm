@@ -1,22 +1,22 @@
 namespace SibGAU.Blogs.Web.Controllers.Dtos;
 
 /// <summary>
-/// Add blog dto.
+/// Update blog dto.
 /// </summary>
-public class AddBlogDto
+public class UpdateBlogDto
 {
     /// <summary>
     /// Title.
     /// </summary>
-    public required string Title { get; init; }
+    public string? Title { get; init; }
     
     /// <summary>
     /// Content.
     /// </summary>
-    public required string Content { get; init; }
+    public string? Content { get; init; }
     
     /// <summary>
-    /// Rubric.
+    /// New rubric.
     /// </summary>
-    public string? Rubric { get; init; }
+    public string? NewRubric { get; init; }
 }

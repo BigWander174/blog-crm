@@ -12,7 +12,7 @@ namespace SibGAU.Blogs.UseCases.Auth.GetCurrentUser;
 /// <summary>
 /// Get current user query handler.
 /// </summary>
-public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUser.GetCurrentUserQuery, AuthUserDto>
+public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, AuthUserDto>
 {
     private readonly SignInManager<Author> signInManager;
     private readonly IMapper mapper;
@@ -32,7 +32,7 @@ public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUser.GetCurr
     }
     
     /// <inheritdoc />
-    public async Task<AuthUserDto> Handle(GetCurrentUser.GetCurrentUserQuery request, CancellationToken cancellationToken)
+    public async Task<AuthUserDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
         var userIdentifier = signInManager.Context.User.FindFirst(ClaimTypes.Sid)?.Value;
         if (userIdentifier is null)

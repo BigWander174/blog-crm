@@ -26,6 +26,11 @@ public class BlogDto
     public required string UserName { get; set; }
     
     /// <summary>
+    /// Rubric.
+    /// </summary>
+    public required string Rubric { get; init; }
+    
+    /// <summary>
     /// Created at.
     /// </summary>
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
