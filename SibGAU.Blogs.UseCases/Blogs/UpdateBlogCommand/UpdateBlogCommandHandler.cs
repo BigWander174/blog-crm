@@ -35,7 +35,6 @@ public class UpdateBlogCommandHandler : IRequestHandler<UpdateBlogCommand, Unit>
         if (request.NewRubric is not null)
         {
             var rubric = await context.Rubrics
-                .AsNoTracking()
                 .FirstOrDefaultAsync(blog => blog.Name == request.NewRubric, cancellationToken);
             if (rubric is null)
             {

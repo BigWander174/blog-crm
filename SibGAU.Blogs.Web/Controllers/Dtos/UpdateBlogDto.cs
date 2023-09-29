@@ -3,7 +3,7 @@ namespace SibGAU.Blogs.Web.Controllers.Dtos;
 /// <summary>
 /// Update blog dto.
 /// </summary>
-public class UpdateBlogDto
+public record UpdateBlogDto
 {
     /// <summary>
     /// Title.

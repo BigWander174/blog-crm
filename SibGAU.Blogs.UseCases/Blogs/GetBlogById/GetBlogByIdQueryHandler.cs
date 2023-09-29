@@ -35,6 +35,7 @@ public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, BlogDto
         var blog = await context.Blogs
             .AsNoTracking()
             .Include(blog => blog.Author)
+            .Include(blog => blog.Rubric)
             .FirstOrDefaultAsync(blog => blog.Id == request.BlogId, cancellationToken);
         if (blog is null)
         {

@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -5,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Rubrics.CreateRubric;
 using SibGAU.Blogs.UseCases.Rubrics.DeleteRubric;
 using SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
+using SibGAU.Blogs.UseCases.Rubrics.UpdateRubric;
+using SibGAU.Blogs.Web.Controllers.Dtos;
 
 namespace SibGAU.Blogs.Web.Controllers;
 
@@ -17,13 +20,15 @@ namespace SibGAU.Blogs.Web.Controllers;
 public class RubricsController : ControllerBase
 {
     private readonly IMediator mediator;
+    private readonly IMapper mapper;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public RubricsController(IMediator mediator)
+    public RubricsController(IMediator mediator, IMapper mapper)
     {
         this.mediator = mediator;
+        this.mapper = mapper;
     }
     
     /// <summary>
@@ -52,6 +57,24 @@ public class RubricsController : ControllerBase
         var getAllRubricsQuery = new GetAllRubricsQuery();
         var rubrics = await mediator.Send(getAllRubricsQuery, cancellationToken);
         return new JsonResult(rubrics);
+    }
+    
+    /// <summary>
+    /// Update rubric.
+    /// </summary>
+    /// <param name="rubricId">Rubric id.</param>
+    /// <param name="updateRubricDto">Update rubric dto.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Action result.</returns>
+    [HttpPatch("{rubricId:int}")]
+    public async Task<IActionResult> UpdateRubricAsync([FromRoute] int rubricId, 
+        [FromBody] UpdateRubricDto updateRubricDto, CancellationToken cancellationToken)
+    {
+        var updateRubricCommand = mapper.Map<UpdateRubricCommand>(updateRubricDto);
+        updateRubricCommand.RubricId = rubricId;
+
+        await mediator.Send(updateRubricCommand, cancellationToken);
+        return Ok();
     }
 
     /// <summary>
