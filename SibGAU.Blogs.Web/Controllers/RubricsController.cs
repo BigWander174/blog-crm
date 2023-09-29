@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SibGAU.Blogs.UseCases.Rubrics.CreateRubric;
 using SibGAU.Blogs.UseCases.Rubrics.GetAllRubrics;
 
 namespace SibGAU.Blogs.Web.Controllers;
@@ -19,6 +20,20 @@ public class RubricsController : ControllerBase
     public RubricsController(IMediator mediator)
     {
         this.mediator = mediator;
+    }
+    
+    /// <summary>
+    /// Create rubric.
+    /// </summary>
+    /// <param name="createRubricCommand">Create rubric command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Action result.</returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateRubricAsync(CreateRubricCommand createRubricCommand,
+        CancellationToken cancellationToken)
+    {
+        await mediator.Send(createRubricCommand, cancellationToken);
+        return Ok();
     }
     
     /// <summary>
