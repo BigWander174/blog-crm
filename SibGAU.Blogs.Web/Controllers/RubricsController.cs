@@ -1,4 +1,6 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SibGAU.Blogs.UseCases.Rubrics.CreateRubric;
 using SibGAU.Blogs.UseCases.Rubrics.DeleteRubric;
@@ -10,6 +12,7 @@ namespace SibGAU.Blogs.Web.Controllers;
 /// Rubrics controller.
 /// </summary>
 [ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/rubrics")]
 public class RubricsController : ControllerBase
 {
@@ -43,6 +46,7 @@ public class RubricsController : ControllerBase
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Action result.</returns>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAllRubricsAsync(CancellationToken cancellationToken)
     {
         var getAllRubricsQuery = new GetAllRubricsQuery();
