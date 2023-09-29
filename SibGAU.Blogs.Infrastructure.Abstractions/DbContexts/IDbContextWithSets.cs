@@ -22,4 +22,9 @@ public interface IDbContextWithSets
     /// Rubrics.
     /// </summary>
     DbSet<Rubric> Rubrics { get; set; }
+    
+    /// <summary>
+    /// Tags.
+    /// </summary>
+    DbSet<Tag> Tags { get; set; }
 }

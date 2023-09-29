@@ -22,6 +22,9 @@ public class AppDbContext : IdentityDbContext<Author>, IAppDbContext
 
     /// <inheritdoc />
     public DbSet<Rubric> Rubrics { get; set; }
+    
+    /// <inheritdoc />
+    public DbSet<Tag> Tags { get; set; }
 
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder builder)
@@ -32,5 +35,9 @@ public class AppDbContext : IdentityDbContext<Author>, IAppDbContext
             .HasMany(rubric => rubric.Blogs)
             .WithOne(blog => blog.Rubric)
             .OnDelete(DeleteBehavior.SetNull);
+
+        builder.Entity<Blog>()
+            .HasMany(blog => blog.Tags)
+            .WithMany(tag => tag.Blogs);
     }
 }

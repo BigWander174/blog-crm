@@ -39,7 +39,12 @@ public class Blog
     /// Rubric.
     /// </summary>
     public Rubric? Rubric { get; set; }
-    
+
+    /// <summary>
+    /// Tags.
+    /// </summary>
+    public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+
     /// <summary>
     /// Created at.
     /// </summary>
