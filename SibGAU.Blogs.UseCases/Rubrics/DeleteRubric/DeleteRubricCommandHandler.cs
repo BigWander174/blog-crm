@@ -24,11 +24,11 @@ public class DeleteRubricCommandHandler : IRequestHandler<DeleteRubricCommand, U
     public async Task<Unit> Handle(DeleteRubricCommand request, CancellationToken cancellationToken)
     {
         var rubric = await context.Rubrics
-            .FirstOrDefaultAsync(rubric => rubric.Name == request.Name, cancellationToken);
+            .FirstOrDefaultAsync(rubric => rubric.Id == request.RubricId, cancellationToken);
 
         if (rubric is null)
         {
-            throw new NotFoundException($"Rubric with name {request.Name} not found");
+            throw new NotFoundException($"Rubric with name {request.RubricId} not found");
         }
 
         context.Rubrics.Remove(rubric);

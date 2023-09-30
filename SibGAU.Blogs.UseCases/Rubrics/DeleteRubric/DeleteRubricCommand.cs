@@ -10,5 +10,5 @@ public record DeleteRubricCommand : IRequest<Unit>
     /// <summary>
     /// Name.
     /// </summary>
-    public required string Name { get; init; }
+    public required int RubricId { get; init; }
 }
