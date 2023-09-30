@@ -19,4 +19,9 @@ public record AddBlogDto
     /// Rubric.
     /// </summary>
     public string? Rubric { get; init; }
+    
+    /// <summary>
+    /// Tag names.
+    /// </summary>
+    public string? TagNames { get; init; }
 }

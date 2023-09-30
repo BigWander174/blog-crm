@@ -83,8 +83,8 @@ public class RubricsController : ControllerBase
     /// <param name="deleteRubricCommand">Delete rubric command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Action result.</returns>
-    [HttpDelete]
-    public async Task<IActionResult> DeleteRubricAsync(DeleteRubricCommand deleteRubricCommand, CancellationToken cancellationToken)
+    [HttpDelete("{RubricId:int}")]
+    public async Task<IActionResult> DeleteRubricAsync([FromRoute] DeleteRubricCommand deleteRubricCommand, CancellationToken cancellationToken)
     {
         await mediator.Send(deleteRubricCommand, cancellationToken);
         return Ok();

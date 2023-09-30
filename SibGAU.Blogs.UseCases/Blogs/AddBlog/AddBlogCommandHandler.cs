@@ -35,24 +35,56 @@ public class AddBlogCommandHandler : IRequestHandler<AddBlogCommand, Unit>
         }
 
         var blog = mapper.Map<Blog>(request);
-        if (string.IsNullOrEmpty(request.Rubric) == false)
+        
+        await AddRubricToBlogAsync(blog, request.Rubric, cancellationToken);
+        await AddTagsToBlogAsync(blog, request.Tags, cancellationToken);
+        
+        await context.Blogs.AddAsync(blog, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return default;
+    }
+
+    private async Task AddRubricToBlogAsync(Blog blog, string? rubricName, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(rubricName) == false)
         {
             var rubricFromDatabase = await context.Rubrics
-                .FirstOrDefaultAsync(rubric => rubric.Name == request.Rubric, cancellationToken);
+                .FirstOrDefaultAsync(rubric => rubric.Name == rubricName, cancellationToken);
             if (rubricFromDatabase is null)
             {
                 rubricFromDatabase = new Rubric()
                 {
-                    Name = request.Rubric
+                    Name = rubricName
                 };
             }
 
             blog.Rubric = rubricFromDatabase;
         }
+    }
 
-        await context.Blogs.AddAsync(blog, cancellationToken);
-        await context.SaveChangesAsync(cancellationToken);
+    private async Task AddTagsToBlogAsync(Blog blog, ICollection<string> tagNames,
+        CancellationToken cancellationToken)
+    {
+        if (tagNames.Any() == false)
+        {
+            return;
+        }
+        tagNames = tagNames.Distinct().ToList();
+        
+        var tagsFromDatabase = await context.Tags
+            .Where(tag => tagNames.Contains(tag.Name))
+            .ToListAsync(cancellationToken);
+        
+        var newTags = tagNames.ExceptBy<string, Tag>(tagsFromDatabase, 
+            tagName => tagsFromDatabase.FirstOrDefault(tagFromDatabase => tagFromDatabase.Name == tagName))
+            .Select(newTag => new Tag
+            {
+                Name = newTag
+            });
 
-        return default;
+        var result = tagsFromDatabase.Union(newTags).ToList();
+
+        blog.Tags = result;
     }
 }

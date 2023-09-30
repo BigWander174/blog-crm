@@ -23,6 +23,11 @@ public record AddBlogCommand : IRequest<Unit>
     public string? Rubric { get; init; }
 
     /// <summary>
+    /// Tags.
+    /// </summary>
+    public ICollection<string> Tags { get; init; } = new List<string>();
+
+    /// <summary>
     /// Author id.
     /// </summary>
     public required string AuthorId { get; set; }
